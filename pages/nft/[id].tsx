@@ -1,13 +1,46 @@
 import React from 'react'
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react"
+import type { GetServerSideProps } from 'next'
+import { sanityClient, urlFor } from '../../sanity'
+import Link from 'next/link'
 
-function NFTDropPage() {
+interface Image {
+  asset: {
+    url: string
+  }
+}
+export interface Creator {
+  _id: string,
+  name: string,
+  address: string,
+  slug: {
+    current: string
+  },
+  image: Image,
+  bio: string
+}
+export interface Collection {
+  _id: string,
+  title: string,
+  description: string,
+  nftCollectionName: string,
+  address: string,
+  slug: {
+    current: string
+  },
+  creartor: Creator,
+  mainImage: Image,
+  previewImage: Image
+}
+
+function NFTDropPage({collection} : Collection) {
   //Auth
   const connectWithMetamask = useMetamask()
   const address = useAddress()
   const disconnect = useDisconnect()
   console.log(address)
   // --
+
   return (
     <div
       className='flex h-screen flex-col lg:grid
@@ -25,7 +58,7 @@ function NFTDropPage() {
             to-purple-600 p-2 rounded-xl'
           >
             <img
-              src='https://links.papareact.com/8sg'
+              src={urlFor(collection.previewImage).url()}
               alt='APE'
               className='w-44 rounded-xl object-cover
               lg:h-96 lg:w-72'
@@ -36,11 +69,12 @@ function NFTDropPage() {
           >
             <h1
               className='text-white text-4xl font-bold'
-            >PAPAFAM Apes
+            >
+              {collection.nftCollectionName}
             </h1>
             <h2
               className='text-gray-300 text-xl'
-            >A collection of APES
+            >{collection.description}
             </h2>
           </div>
         </div>
@@ -54,19 +88,21 @@ function NFTDropPage() {
         <header
           className='flex items-center justify-between'
         >
-          <h1
-            className='w-52 cursor-pointer
-            text-xl font-extralight sm:w-80'
-          >
-            The{' '}
-            <span
-              className='font-extrabold
-              underline decoration-pink-600/50'
+          <Link href={'/'}>
+            <h1
+              className='w-52 cursor-pointer
+              text-xl font-extralight sm:w-80'
             >
-              PAPAFAM
-            </span>
-              {' '}NFT Market Place
-          </h1>
+              The{' '}
+              <span
+                className='font-extrabold
+                underline decoration-pink-600/50'
+              >
+                PAPAFAM
+              </span>
+                {' '}NFT Market Place
+            </h1>
+          </Link>
           <button
             className='rounded-full bg-rose-400
             text-white px-4 py-2 text-xs font-bold
@@ -95,14 +131,14 @@ function NFTDropPage() {
           <img
             className='w-80 object-cover pb-10
             lg:h-40'
-            src='https://links.papareact.com/bdy'
+            src={urlFor(collection.mainImage).url()}
             alt='static'
           />
           <h1
             className='text-3xl font-bold lg:text-5xl
             lg:font-extrabold'
           >
-            The PAPAFAM Ape Coding Club | NFT Drop
+            {collection.title}
           </h1>
           <p
             className='pt-2 text-xl text-green-500
@@ -124,3 +160,44 @@ function NFTDropPage() {
 }
 
 export default NFTDropPage
+
+export const getServerSideProps: GetServerSideProps = async ({params}) => {
+  const query = `
+  *[_type == "collection" && slug.current == $id][0]{
+    _id,
+    title,
+    address,
+    description,
+    nftCollectionName,
+    mainImage {
+      asset
+    },
+    previewImage {
+      asset
+    },
+    slug {
+      current
+    },
+    creator-> {
+      _id,
+      name,
+      address,
+      slug {
+        current
+      },
+    },
+  }
+  `
+  const collection = await sanityClient.fetch(query ,{id: params?.id})
+
+  if (!collection) {
+    return {
+      notFound: true
+    }
+  }
+  return {
+    props: {
+      collection
+    }
+  }
+}
