@@ -136,7 +136,7 @@ function NFTDropPage({ collection }) {
                 className="font-extrabold
                 underline decoration-pink-600/50"
               >
-                PAPAFAM
+                SAMS.JS
               </span>{' '}
               NFT Market Place
             </h1>

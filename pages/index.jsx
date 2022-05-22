@@ -22,7 +22,7 @@ const Home = ({collections}) => {
           className='font-extrabold
           underline decoration-pink-600/50'
         >
-          PAPAFAM
+          SAMS.JS
         </span>
           {' '}NFT Market Place
       </h1>
