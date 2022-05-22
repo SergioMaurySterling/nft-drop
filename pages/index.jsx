@@ -11,7 +11,7 @@ const Home = ({collections}) => {
       py-20 px-10 2xl:px-0'
     >
       <Head>
-        <title>NFT Drop</title>
+        <title>NFT Market place</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1
@@ -26,7 +26,7 @@ const Home = ({collections}) => {
         </span>
           {' '}NFT Market Place
       </h1>
-      <main className='bg-slate-100 p-10 shadow-xl shadow-rose-400/20'>
+      <main className='bg-slate-900 p-10 shadow-xl shadow-rose-400/20 rounded-lg'>
         <div
           className='space-x-3 grid md:grid-cols-2
           lg:grid-cols-3 2xl:grid-cols-4'

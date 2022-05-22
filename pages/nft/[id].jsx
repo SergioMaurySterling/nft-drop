@@ -86,15 +86,15 @@ function NFTDropPage({ collection }) {
   return (
     <div
       className="flex h-screen flex-col lg:grid
-      lg:grid-cols-10"
+      lg:grid-cols-10 bg-slate-800"
     >
       <Toaster
         position='top-center'
       />
       {/* Left side */}
       <div
-        className="bg-gradient-to-br from-cyan-800
-      to-rose-500 lg:col-span-4"
+        className="bg-gradient-to-br from-slate-900
+      to-rose-900 lg:col-span-4"
       >
         <div
           className="flex flex-col items-center
@@ -160,12 +160,12 @@ function NFTDropPage({ collection }) {
         {/* Content */}
         <div
           className="mt-10 flex flex-1 flex-col
-          items-center space-y-6 text-center lg:justify-center
+          items-center space-y-10 text-center lg:justify-center
           lg:space-y-0"
         >
           <img
             className="w-80 object-cover pb-10
-            lg:h-40"
+            lg:h-40 rounded-t-lg rounded-b-lg"
             src={urlFor(collection.mainImage).url()}
             alt="static"
           />
@@ -188,11 +188,18 @@ function NFTDropPage({ collection }) {
             </p>
           )}
           {loading && (
-            <img
-              className="h-20 w-80 object-contain"
-              src="https://cdn.hackernoon.com/images/0*4Gzjgh9Y7Gu8KEtZ.gif"
-              alt="loading pic"
-            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 bg-slate-800 text-rose-600 animate-spin rounded-full"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z"
+                clip-rule="evenodd"
+              />
+            </svg>
           )}
         </div>
         {/* Mint button */}
@@ -202,7 +209,7 @@ function NFTDropPage({ collection }) {
             loading || claimedSupply === totalSupply?.toString() || !address
           }
           className="mt-10 h-16
-          w-full rounded-full bg-red-600 font-bold text-white
+          w-full rounded-full bg-rose-600 font-bold text-white
           disabled:bg-gray-400"
         >
           {loading ? (
