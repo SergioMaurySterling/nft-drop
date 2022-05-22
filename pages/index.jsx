@@ -1,40 +1,10 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { sanityClient, urlFor } from '../sanity'
 import Link from 'next/link'
 
-interface Image {
-  asset: {
-    url: string
-  }
-}
-export interface Creator {
-  _id: string,
-  name: string,
-  address: string,
-  slug: {
-    current: string
-  },
-  image: Image,
-  bio: string
-}
-export interface Collection {
-  _id: string,
-  title: string,
-  description: string,
-  nftCollectionName: string,
-  address: string,
-  slug: {
-    current: string
-  },
-  creartor: Creator,
-  mainImage: Image,
-  previewImage: Image
-}
-
-const Home = ({collections}: Collection) => {
-  console.log(collections)
+const Home = ({collections}) => {
   return (
     <div
       className='max-w-7xl flex mx-auto min-h-screen flex-col
@@ -97,7 +67,7 @@ const Home = ({collections}: Collection) => {
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps = async () => {
   const query = `
   *[_type == "collection"]{
     _id,

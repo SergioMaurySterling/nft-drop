@@ -1,39 +1,10 @@
 import React from 'react'
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react"
-import type { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { sanityClient, urlFor } from '../../sanity'
 import Link from 'next/link'
 
-interface Image {
-  asset: {
-    url: string
-  }
-}
-export interface Creator {
-  _id: string,
-  name: string,
-  address: string,
-  slug: {
-    current: string
-  },
-  image: Image,
-  bio: string
-}
-export interface Collection {
-  _id: string,
-  title: string,
-  description: string,
-  nftCollectionName: string,
-  address: string,
-  slug: {
-    current: string
-  },
-  creartor: Creator,
-  mainImage: Image,
-  previewImage: Image
-}
-
-function NFTDropPage({collection} : Collection) {
+function NFTDropPage({collection}) {
   //Auth
   const connectWithMetamask = useMetamask()
   const address = useAddress()
@@ -161,7 +132,7 @@ function NFTDropPage({collection} : Collection) {
 
 export default NFTDropPage
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
+export const getServerSideProps = async ({params}) => {
   const query = `
   *[_type == "collection" && slug.current == $id][0]{
     _id,
