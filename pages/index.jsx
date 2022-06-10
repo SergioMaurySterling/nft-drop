@@ -5,6 +5,7 @@ import { sanityClient, urlFor } from '../sanity'
 import Link from 'next/link'
 
 const Home = ({collections}) => {
+  const iframe = '<iframe src="https://i.simmer.io/@samsjs/testlego" style="width:960px;height:600px" />'
   return (
     <div
       className='max-w-7xl flex mx-auto min-h-screen flex-col
@@ -60,6 +61,24 @@ const Home = ({collections}) => {
             ))
           }
         </div>
+      </main>
+      <h1
+        className='my-10 text-4xl font-extralight'
+      >
+        The{' '}
+        <span
+          className='font-extrabold
+          underline decoration-pink-600/50'
+        >
+          SAMS.JS
+        </span>
+          {' '}LEGO Metaverse
+      </h1>
+      <main>
+        <div
+          className='w-full'
+          dangerouslySetInnerHTML={ {__html:  iframe?iframe:""}}
+        />
       </main>
     </div>
   )
