@@ -5,13 +5,13 @@ import { sanityClient, urlFor } from '../sanity'
 import Link from 'next/link'
 
 const Home = ({collections}) => {
-  const iframe = '<iframe src="https://i.simmer.io/@samsjs/testlego" style="width:960px;height:600px" />'
+  const iframe = '<iframe src="https://i.simmer.io/@samsjs/garagelagara" style="width:960px;height:600px" />'
   return (
     <div
       className='max-w-7xl flex mx-auto min-h-screen flex-col
       py-20 px-10 2xl:px-0'
     >
-      <Head>
+      {/* <Head>
         <title>NFT Market place</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -61,7 +61,7 @@ const Home = ({collections}) => {
             ))
           }
         </div>
-      </main>
+      </main> */}
       <h1
         className='my-10 text-4xl font-extralight'
       >
@@ -70,9 +70,9 @@ const Home = ({collections}) => {
           className='font-extrabold
           underline decoration-pink-600/50'
         >
-          SAMS.JS
+          LaGara
         </span>
-          {' '}LEGO Metaverse
+          {' '}Garage
       </h1>
       <main>
         <div
